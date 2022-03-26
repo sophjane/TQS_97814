@@ -1,7 +1,5 @@
 package geocoding;
 
-import geocoding.ISimpleHttpClient;
-import geocoding.MainGeocode;
 import org.apache.http.ParseException;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.simple.JSONArray;
