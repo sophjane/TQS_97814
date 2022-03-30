@@ -23,8 +23,8 @@ import carsservice.carsservice.dao.CarRepository;
 import carsservice.carsservice.model.Car;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@TestPropertySource(locations = "application-integrationtest.properties")
-@AutoConfigureTestDatabase
+@TestPropertySource(locations = "application-integrationtest.properties")
+// @AutoConfigureTestDatabase
 public class CarRestControllerTemplateIT {
 
     @LocalServerPort
