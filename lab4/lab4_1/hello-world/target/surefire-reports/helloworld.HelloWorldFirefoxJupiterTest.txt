@@ -1,13 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: helloworld.HelloWorldFirefoxJupiterTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.675 s <<< FAILURE! - in helloworld.HelloWorldFirefoxJupiterTest
-site_header_is_on_home_page  Time elapsed: 4.669 s  <<< ERROR!
-org.openqa.selenium.SessionNotCreatedException: 
-Could not start a new session. Response code 500. Message: Process unexpectedly closed with status 1
-Build info: version: '4.1.3', revision: '7b1ebf28ef'
-System info: host: 'sophiej', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.13.0-39-generic', java.version: '11.0.14.1'
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Command: [null, newSession {capabilities=[Capabilities {acceptInsecureCerts: true, browserName: firefox, moz:debuggerAddress: true, moz:firefoxOptions: {}}], desiredCapabilities=Capabilities {acceptInsecureCerts: true, browserName: firefox, moz:debuggerAddress: true, moz:firefoxOptions: {}}}]
-	at helloworld.HelloWorldFirefoxJupiterTest.SetUp(HelloWorldFirefoxJupiterTest.java:20)
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 14.247 s <<< FAILURE! - in helloworld.HelloWorldFirefoxJupiterTest
+site_header_is_on_home_page  Time elapsed: 14.242 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at helloworld.HelloWorldFirefoxJupiterTest.site_header_is_on_home_page(HelloWorldFirefoxJupiterTest.java:28)
 
