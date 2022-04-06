@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.Browser;
+// import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -23,9 +23,9 @@ import org.openqa.selenium.Keys;
 
 import java.util.*;
 
-import io.github.bonigarcia.seljup.Browser;
 import io.github.bonigarcia.seljup.EnabledIfBrowserAvailable;
 import io.github.bonigarcia.seljup.SeleniumJupiter;
+import io.github.bonigarcia.seljup.Browser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
