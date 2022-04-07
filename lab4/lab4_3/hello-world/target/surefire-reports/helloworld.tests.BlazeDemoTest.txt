@@ -1,16 +1,13 @@
 -------------------------------------------------------------------------------
 Test set: helloworld.tests.BlazeDemoTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.975 s <<< FAILURE! - in helloworld.tests.BlazeDemoTest
-selectAndBuyTrip  Time elapsed: 2.968 s  <<< ERROR!
-org.openqa.selenium.WebDriverException: 
-unknown error: net::ERR_NAME_NOT_RESOLVED
-  (Session info: chrome=100.0.4896.60)
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.397 s <<< FAILURE! - in helloworld.tests.BlazeDemoTest
+selectAndBuyTrip  Time elapsed: 4.383 s  <<< ERROR!
+org.openqa.selenium.InvalidSelectorException: 
+Compound class names not permitted
+For documentation on this error, please visit: https://selenium.dev/exceptions/#invalid_selector_exception
 Build info: version: '4.1.2', revision: '9a5a329c5a'
 System info: host: 'sophiej', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.13.0-39-generic', java.version: '11.0.14.1'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [3fd3dce15ab98d7dc84ce0e2e6cc22de, get {url=https://www.blamedemo.com}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 100.0.4896.60, chrome: {chromedriverVersion: 100.0.4896.60 (6a5d10861ce8..., userDataDir: /tmp/.com.google.Chrome.Mx2tzj}, goog:chromeOptions: {debuggerAddress: localhost:36379}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), se:cdp: ws://localhost:36379/devtoo..., se:cdpVersion: 100.0.4896.60, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 3fd3dce15ab98d7dc84ce0e2e6cc22de
-	at helloworld.tests.BlazeDemoTest.selectAndBuyTrip(BlazeDemoTest.java:24)
+Driver info: driver.version: unknown
+	at helloworld.tests.BlazeDemoTest.selectAndBuyTrip(BlazeDemoTest.java:27)
 

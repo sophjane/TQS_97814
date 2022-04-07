@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 public class ReservePage {
     private WebDriver driver;
     
-    @FindBy(xpath = "/html/body/div[1]/h3")
+    @FindBy(tagName = "h3")
     private WebElement heading;
 
     @FindBy(css = "tr:nth-child(3) .btn")

@@ -12,15 +12,15 @@ import org.openqa.selenium.support.ui.Select;
 public class HomePage {
     private WebDriver driver;
 
-    private static String PAGE_URL="https://www.blamedemo.com";
+    private static String PAGE_URL="https://www.blazedemo.com/index.php";
 
     @FindBy(name = "fromPort")
     private WebElement departureCityDropdown;
 
-    @FindBy(name = "fromPort")
+    @FindBy(name = "toPort")
     private WebElement destinationCityDropdown;
 
-    @FindBy(className = "btn btn-primary")
+    @FindBy(className = "btn-primary")
     private WebElement findFlightsButton;
 
     //Constructor
@@ -41,6 +41,6 @@ public class HomePage {
     }
 
     public void clickOnFindFlightsButton(){
-    findFlightsButton.click();
+        findFlightsButton.click();
     }
 }

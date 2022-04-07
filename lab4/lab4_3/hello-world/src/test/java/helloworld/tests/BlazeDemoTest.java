@@ -11,12 +11,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
+
 public class BlazeDemoTest {
    WebDriver driver;
 
    @BeforeEach
    public void setup(){
        driver = new ChromeDriver();
+       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
    }
 
    @Test
