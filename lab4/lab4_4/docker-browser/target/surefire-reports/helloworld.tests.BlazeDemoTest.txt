@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: helloworld.tests.BlazeDemoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.386 s <<< FAILURE! - in helloworld.tests.BlazeDemoTest
+selectAndBuyTrip{WebDriver}  Time elapsed: 4.367 s  <<< ERROR!
+java.lang.NullPointerException
+	at helloworld.tests.BlazeDemoTest.selectAndBuyTrip(BlazeDemoTest.java:22)
+
