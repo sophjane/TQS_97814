@@ -13,6 +13,12 @@ public class Book {
 		this.published = published;
 	}
 
+	public Book(String title, String author) {
+		this.title = title;
+		this.author = author;
+		this.published = null;
+	}
+
 	public String getTitle() {
 		return this.title;
 	}
@@ -23,5 +29,9 @@ public class Book {
 
 	public Date getPublished() {
 		return this.published;
+	}
+
+	public String toString() {
+		return "Title=" + title;
 	}
 }

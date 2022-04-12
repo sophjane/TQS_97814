@@ -15,12 +15,18 @@ public class Library {
 	}
  
 	public List<Book> findBooks(final Date from, final Date to) {
-		Calendar end = Calendar.getInstance();
-		end.setTime(to);
-		end.roll(Calendar.YEAR, 1);
- 
+        Calendar end = Calendar.getInstance();
+        end.setTime(to);
+        end.roll(Calendar.YEAR, 1);
+
+        return store.stream().filter(book -> {
+            return from.before(book.getPublished()) && end.getTime().after(book.getPublished());
+        }).sorted(Comparator.comparing(Book::getPublished).reversed()).collect(Collectors.toList());
+    }
+
+	public List<Book> findBooksByAuthor(final String author) {
 		return store.stream().filter(book -> {
-			return from.before(book.getPublished()) && end.getTime().after(book.getPublished());
-		}).sorted(Comparator.comparing(Book::getPublished).reversed()).collect(Collectors.toList());
+			return book.getAuthor().contains(author);
+		}).collect(Collectors.toList());
 	}
 }
