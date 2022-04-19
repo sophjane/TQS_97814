@@ -22,14 +22,14 @@ public class Cache {
 
 	public Cache(int ttl, int maxSize) {
 		cacheMap = new HashMap<>(maxSize);
-		this.ttl = ttl;
+		this.ttl = ttl*1000;
 
 		if(ttl > 0) {
 			Thread t = new Thread(new Runnable() {
 				public void run() {
 					while (true) {
 						try {
-							Thread.sleep(ttl/2);
+							Thread.sleep(ttl);
 						} catch (InterruptedException ex) {
 							ex.printStackTrace();
 						}

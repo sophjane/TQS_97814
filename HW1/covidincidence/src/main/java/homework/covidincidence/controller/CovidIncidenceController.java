@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import homework.covidincidence.service.CovidIncidenceService;
 
@@ -24,18 +25,21 @@ public class CovidIncidenceController {
         this.covidIncidenceService = covidIncidenceService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/countries")
     public ResponseEntity<String> getCountries() {
         LOGGER.info("Controller: Get Countries");
         return covidIncidenceService.getCountries();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/statistics")
     public ResponseEntity<String> getStatistics(@RequestParam(required = false) String country) {
         LOGGER.info(country != null ? "Controller: Get Statistics of " + country : "Controller: Get Statistics");
         return covidIncidenceService.getStatistics(country);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/history")
     public ResponseEntity<String> getHistory(@RequestParam String country, @RequestParam(required = false) String day) {
         LOGGER.info(day != null ? "Controller: Get Statistics of " + country + ", day: " + day : "Controller: Get Statistics of " + country);

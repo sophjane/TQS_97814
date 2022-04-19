@@ -44,7 +44,7 @@ public class CovidIncidenceService {
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
                 HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-                LOGGER.info("Service: Get countries from API");
+                LOGGER.info("Service: Get countries from API and Put in cache");
                 cache.put("countries", response.body());
                 LOGGER.debug("PUT");
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
@@ -85,7 +85,7 @@ public class CovidIncidenceService {
             URIBuilder uriBuilder = new URIBuilder(baseURL + "history")
                 .addParameter("country", country);
 
-            if (country != null) {
+            if (day != null) {
                 uriBuilder.addParameter("day", day);
             }
             URI uri = uriBuilder.build();
