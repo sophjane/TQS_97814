@@ -11,6 +11,10 @@ public class Cache {
 
 	private final HashMap<String, CacheObject> cacheMap;
 
+	private int hits ;
+	private int misses;
+
+
 	protected class CacheObject {
 		public long creationTime = System.currentTimeMillis();
 		public String value;
@@ -23,6 +27,8 @@ public class Cache {
 	public Cache(int ttl, int maxSize) {
 		cacheMap = new HashMap<>(maxSize);
 		this.ttl = ttl*1000;
+		this.hits = 0;
+		this.misses = 0;
 
 		if(ttl > 0) {
 			Thread t = new Thread(new Runnable() {
@@ -46,8 +52,11 @@ public class Cache {
 		synchronized(cacheMap) {
 			CacheObject c;
 			c = (CacheObject) cacheMap.get(key);
-			if(c != null) 
+			if(c != null) {
+				this.hits++;
 				return c.value;
+			}
+			this.misses++;
 			return null;
 		}
 	}
@@ -70,6 +79,18 @@ public class Cache {
 		}
 	}
 
+	public int getTtl() {
+		return this.ttl;
+	}
+
+	public int getMisses() {
+		return this.misses;
+	}
+
+	public int getHits() {
+		return this.hits;
+	}
+
 
 	public void cacheCleanup() {
 		long now = System.currentTimeMillis();
@@ -89,8 +110,7 @@ public class Cache {
 	
 				if(c != null && (now > (ttl+c.creationTime))) {
 					keysToDelete.add(key);
-				}
-	
+				}	
 			}
 		}
 
