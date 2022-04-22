@@ -32,7 +32,7 @@ import java.util.Optional;
 public class CarController_WithRestAssuredTest {
 
     @Container
-	public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:12")
+	public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:latest")
 		.withUsername("admin")
 		.withPassword("admin")
 		.withDatabaseName("cars");;
