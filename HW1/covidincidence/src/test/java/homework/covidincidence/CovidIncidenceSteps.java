@@ -38,7 +38,7 @@ public class CovidIncidenceSteps {
     @And("I select {string} on the date option")
     public void iSelectDate(String date) {
         driver.findElement(By.id("date")).click();
-        driver.findElement(By.id("date")).sendKeys("2022-04-07");
+        driver.findElement(By.id("date")).sendKeys(date);
 }
 
     @And("I click on Search")

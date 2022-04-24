@@ -5,7 +5,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState();
   const [tab, setTab] = useState("history");
-  const [tableData, setTableData] = useState([]);
+  const [state, setState] = useState({ status: "idle" });
 
   useEffect(() => {
     const getCountries = async () => {
@@ -48,8 +48,12 @@ function App() {
     let url;
     const country = e.currentTarget.country?.value;
 
+    console.log(country);
+
     if (tab === "history") {
       const date = e.currentTarget.date?.value;
+
+      console.log(date);
 
       if (date) {
         url = `http://localhost:8080/api/history?country=${country}&day=${date}`;
@@ -57,7 +61,7 @@ function App() {
         url = `http://localhost:8080/api/history?country=${country}`;
       }
     } else if (tab === "statistics") {
-      if (country) {
+      if (country !== "null") {
         url = `http://localhost:8080/api/statistics?country=${country}`;
       } else {
         url = "http://localhost:8080/api/statistics";
@@ -66,7 +70,7 @@ function App() {
     const resp = await fetch(url, options);
     const response = await resp.json();
 
-    setTableData(response.response);
+    setState({ status: "success", data: response.response });
   };
 
   useEffect(() => {
@@ -82,7 +86,7 @@ function App() {
             id="history"
             className={tab === "history" ? "active" : undefined}
             onClick={() => {
-              setTableData([]);
+              setState({ status: "idle" });
               setTab("history");
             }}
           >
@@ -92,7 +96,7 @@ function App() {
             id="statistics"
             className={tab === "statistics" ? "active" : undefined}
             onClick={() => {
-              setTableData([]);
+              setState({ status: "idle" });
               setTab("statistics");
             }}
           >
@@ -104,7 +108,7 @@ function App() {
           <form onSubmit={handleSubmit}>
             <label htmlFor="country">Country</label>
             <select name="country" id="country">
-              <option disabled selected value>
+              <option disabled selected value="null">
                 Select a country
               </option>
               {countries.map((option) => (
@@ -124,7 +128,7 @@ function App() {
           <form onSubmit={handleSubmit}>
             <label htmlFor="country">Country</label>
             <select name="country" id="country">
-              <option disabled selected value>
+              <option disabled selected value="null">
                 Select a country
               </option>
               {countries.map((option) => (
@@ -139,7 +143,8 @@ function App() {
           </form>
         )}
       </div>
-      {tableData.length !== 0 && (
+      {state.status === "success" && !state.data.length && <p>No Results</p>}
+      {state.status === "success" && !!state.data.length && (
         <table id="results">
           <tr>
             <th>Continent</th>
@@ -159,7 +164,7 @@ function App() {
             <th>Day</th>
             <th>Time</th>
           </tr>
-          {tableData.map((data, key) => (
+          {state.data?.map((data, key) => (
             <tr key={key}>
               <th>{data.continent}</th>
               <th>{data.country}</th>
