@@ -63,7 +63,7 @@ public class CovidIncidenceServiceTest {
 
 
     @Test
-    void whenGetStatistics_thenReturnStatistics() throws IOException, InterruptedException {
+    void whenGetStatistics_thenReturnStatistics() throws IOException, InterruptedException, URISyntaxException {
 
         String stats = "{\"get\":\"statistics\",\"parameters\":[],\"errors\":[],\"results\":240,\"response\":[{\"continent\":\"Asia\",\"country\":\"China\",\"population\":1439323776,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\", \"time\":\"2022-04-23T11:30:04+00:00\"},{\"continent\":\"Europe\",\"country\":\"Monaco\",\"population\":39743,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\",\"time\":\"2022-04-23T11:30:04+00:00\"}]}";
 

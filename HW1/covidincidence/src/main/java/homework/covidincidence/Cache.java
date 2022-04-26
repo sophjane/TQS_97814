@@ -34,13 +34,19 @@ public class Cache {
 			Thread t = new Thread(new Runnable() {
 				public void run() {
 					while (true) {
+						if(ttl <= 0) {
+							break;
+						}
+
 						try {
 							Thread.sleep(ttl);
 						} catch (InterruptedException ex) {
 							ex.printStackTrace();
+							Thread.currentThread().interrupt();
 						}
 						cacheCleanup();
 					}
+					
 				}
 			});
 			t.setDaemon(true);

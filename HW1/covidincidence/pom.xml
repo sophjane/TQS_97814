@@ -21,6 +21,8 @@
 		<selenium-java.version>3.141.59</selenium-java.version>
 		<webdrivermanager.version>5.0.3</webdrivermanager.version>
 		<junit-platform-suite.version>1.8.2</junit-platform-suite.version>
+		<sonar.organization>sophjane</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>

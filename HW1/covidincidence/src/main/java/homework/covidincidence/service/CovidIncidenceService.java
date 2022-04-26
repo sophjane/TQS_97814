@@ -1,6 +1,8 @@
 package homework.covidincidence.service;
 
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public class CovidIncidenceService {
 
     Cache cache = new Cache(5, 6);
 
-    public ResponseEntity<String>  getCountries() {
+    public ResponseEntity<String>  getCountries() throws IOException {
         try {
             if(cache.get("countries") != null) {
                 LOGGER.debug("GET");
@@ -39,15 +41,16 @@ public class CovidIncidenceService {
             LOGGER.debug("PUT");
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (InterruptedException e){
             e.printStackTrace();
             LOGGER.error("Service: Get Countries");
+            Thread.currentThread().interrupt();
 
             return new ResponseEntity<>("Error!, Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<String>  getStatistics(String country) {
+    public ResponseEntity<String>  getStatistics(String country) throws URISyntaxException, IOException {
         try {
             URIBuilder uriBuilder = new URIBuilder(baseURL + "statistics");
 
@@ -59,15 +62,16 @@ public class CovidIncidenceService {
             LOGGER.info(country != null ? "Service: Get Statistics of " + country + "  from API" :  "Service: Get Statistics from API");
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (InterruptedException e){
             e.printStackTrace();
             LOGGER.error("Service: Get Statistics");
+            Thread.currentThread().interrupt();
             
             return new ResponseEntity<>("Error!, Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<String>  getCountryHistory(String country, String day) {
+    public ResponseEntity<String>  getCountryHistory(String country, String day) throws URISyntaxException, IOException {
         try {
             URIBuilder uriBuilder = new URIBuilder(baseURL + "history")
                 .addParameter("country", country);
@@ -80,9 +84,10 @@ public class CovidIncidenceService {
             LOGGER.info(day != null ? "Service: Get History of " + country + " on the " + day + " from API" :  "Service: Get History of " + country + " from API");
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (InterruptedException e){
             e.printStackTrace();
             LOGGER.error("Service: Get History");
+            Thread.currentThread().interrupt();
 
             return new ResponseEntity<>("Error!, Please try again", HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -1,5 +1,8 @@
 package homework.covidincidence.controller;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +30,21 @@ public class CovidIncidenceController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/countries")
-    public ResponseEntity<String> getCountries() {
+    public ResponseEntity<String> getCountries() throws IOException {
         LOGGER.info("Controller: Get Countries");
         return covidIncidenceService.getCountries();
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/statistics")
-    public ResponseEntity<String> getStatistics(@RequestParam(required = false) String country) {
+    public ResponseEntity<String> getStatistics(@RequestParam(required = false) String country) throws URISyntaxException, IOException {
         LOGGER.info(country != null ? "Controller: Get Statistics of " + country : "Controller: Get Statistics");
         return covidIncidenceService.getStatistics(country);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/history")
-    public ResponseEntity<String> getHistory(@RequestParam String country, @RequestParam(required = false) String day) {
+    public ResponseEntity<String> getHistory(@RequestParam String country, @RequestParam(required = false) String day) throws URISyntaxException, IOException {
         LOGGER.info(day != null ? "Controller: Get Statistics of " + country + ", day: " + day : "Controller: Get Statistics of " + country);
         return covidIncidenceService.getCountryHistory(country, day);
     }
