@@ -58,6 +58,14 @@ form button {
   color: white;
 }
 
+form button[type="button"] {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
+}
+
 table {
   margin: 40px 20px;
 }

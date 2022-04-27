@@ -11,8 +11,6 @@ import io.cucumber.java.en.When;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-
-
 public class CovidIncidenceSteps {
 
     private ChromeDriver driver;
@@ -46,8 +44,18 @@ public class CovidIncidenceSteps {
         driver.findElement(By.id("search")).click();
     }
 
+    @And("I click on Check Cache")
+    public void iPressCheckCache() {
+        driver.findElement(By.id("cache")).click();
+    }
+
     @Then("I should see the results in a table")
     public void iShouldGetCovidIncidenceTable() {
         WebElement table = new WebDriverWait(driver,20).until(driver -> driver.findElement(By.id("results")));
+    }
+
+    @Then("I should see a paragraph with the cache usage statistics")
+    public void iShouldGetCacheUsageStatistics() {
+        driver.findElement(By.id("cache-info"));
     }
 }

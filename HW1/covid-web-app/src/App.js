@@ -6,6 +6,7 @@ function App() {
   const [country, setCountry] = useState();
   const [tab, setTab] = useState("history");
   const [state, setState] = useState({ status: "idle" });
+  const [cacheInfo, setCacheInfo] = useState();
 
   useEffect(() => {
     const getCountries = async () => {
@@ -36,6 +37,8 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setCacheInfo(undefined);
 
     const options = {
       method: "GET",
@@ -77,6 +80,23 @@ function App() {
     setCountry("");
   }, [tab]);
 
+  const handleClick = async () => {
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Host": "covid-193.p.rapidapi.com",
+        "X-RapidAPI-Key": "e43a5d1d6fmsh454b6ef0f1e4428p104c4fjsnd533eb647f22",
+      },
+    };
+
+    const url = "http://localhost:8080/api/cache";
+
+    const resp = await fetch(url, options);
+    const response = await resp.json();
+
+    setCacheInfo(response.response);
+  };
+
   return (
     <div className="App">
       <h1>Covid Incidence Statistics</h1>
@@ -88,6 +108,7 @@ function App() {
             onClick={() => {
               setState({ status: "idle" });
               setTab("history");
+              setCacheInfo(undefined);
             }}
           >
             History
@@ -98,6 +119,7 @@ function App() {
             onClick={() => {
               setState({ status: "idle" });
               setTab("statistics");
+              setCacheInfo(undefined);
             }}
           >
             Statistics
@@ -122,6 +144,9 @@ function App() {
             <button type="submit" id="search">
               Search
             </button>
+            <button type="button" id="cache" onClick={handleClick}>
+              Check Cache
+            </button>
           </form>
         )}
         {tab === "statistics" && (
@@ -140,9 +165,13 @@ function App() {
             <button type="submit" id="search">
               Search
             </button>
+            <button type="button" id="cache" onClick={handleClick}>
+              Check Cache Info
+            </button>
           </form>
         )}
       </div>
+      {cacheInfo && <p id="cache-info">{cacheInfo}</p>}
       {state.status === "success" && !state.data.length && <p>No Results</p>}
       {state.status === "success" && !!state.data.length && (
         <table id="results">

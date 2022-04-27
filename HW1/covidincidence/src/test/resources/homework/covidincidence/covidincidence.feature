@@ -22,11 +22,14 @@ Feature: Check Covid Incidence
         Then I should see the results in a table
 
 
- Scenario: Find history of country
+    Scenario: Find history of country
         When I navigate to "http://localhost:3000/"
         And I click on "History"
         And I select "albania" on the country option
         And I click on Search
         Then I should see the results in a table
 
-    
+    Scenario: Check the cache usage statistics
+        When I navigate to "http://localhost:3000/"
+        And I click on Check Cache
+        Then I should see a paragraph with the cache usage statistics

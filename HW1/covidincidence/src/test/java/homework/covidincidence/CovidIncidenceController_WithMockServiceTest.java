@@ -20,11 +20,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.json.JSONObject;
+
 import homework.covidincidence.controller.CovidIncidenceController;
 import homework.covidincidence.service.CovidIncidenceService;
 
 @WebMvcTest(CovidIncidenceController.class)
-public class CovidIncidenceController_WithMockServiceTest {
+class CovidIncidenceController_WithMockServiceTest {
 
 
     @Autowired
@@ -35,7 +37,7 @@ public class CovidIncidenceController_WithMockServiceTest {
 
 
     @Test
-    public void givenCountries_whenGetCountries_thenReturnListOfCountries() throws Exception {
+    void givenCountries_whenGetCountries_thenReturnListOfCountries() throws Exception {
 
         String countries = "{\"get\":\"countries\",\"parameters\":[],\"errors\":[],\"results\":233,\"response\":[\"Afghanistan\",\"Albania\"]}";
 
@@ -51,7 +53,7 @@ public class CovidIncidenceController_WithMockServiceTest {
     }  
 
     @Test
-    public void givenStatistics_whenGetStatistics_thenReturnStatistics() throws Exception {
+    void givenStatistics_whenGetStatistics_thenReturnStatistics() throws Exception {
 
         String stats = "{\"get\":\"statistics\",\"parameters\":[],\"errors\":[],\"results\":240,\"response\":[{\"continent\":\"Asia\",\"country\":\"China\",\"population\":1439323776,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\", \"time\":\"2022-04-23T11:30:04+00:00\"},{\"continent\":\"Europe\",\"country\":\"Monaco\",\"population\":39743,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\",\"time\":\"2022-04-23T11:30:04+00:00\"}]}";
 
@@ -66,7 +68,7 @@ public class CovidIncidenceController_WithMockServiceTest {
     }
 
     @Test
-    public void givenCountryStatistics_whenGetCountryStatistics_thenReturnCountryStatistics() throws Exception {
+    void givenCountryStatistics_whenGetCountryStatistics_thenReturnCountryStatistics() throws Exception {
 
         String countryStats = "{\"get\":\"statistics\",\"parameters\":{...},\"errors\":[],\"results\":1,\"response\":[{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10143125,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\",\"time\":\"2022-04-23T11:45:03+00:00\"}]}";
 
@@ -81,7 +83,7 @@ public class CovidIncidenceController_WithMockServiceTest {
     }
 
     @Test
-    public void givenCountryHistory_whenGetCountryHistory_thenReturnCountryHistory() throws Exception {
+    void givenCountryHistory_whenGetCountryHistory_thenReturnCountryHistory() throws Exception {
 
         String countryHistory = "{\"get\":\"history\",\"parameters\":{\"country\":\"portugal\"},\"errors\":[],\"results\":1576,\"response\":[{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10143125,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\",\"time\":\"2022-04-23T12:00:03+00:00\",},{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10143125,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2022-04-23\",\"time\":\"2022-04-23T03:45:02+00:00\"}]}";
 
@@ -96,7 +98,7 @@ public class CovidIncidenceController_WithMockServiceTest {
     }
 
     @Test
-    public void givenCountryDayHistory_whenGetCountryDayeHistory_thenReturnCountryDayHistory() throws Exception {
+    void givenCountryDayHistory_whenGetCountryDayeHistory_thenReturnCountryDayHistory() throws Exception {
 
         String countryDayHistory = "{\"get\":\"history\",\"parameters\":{...},\"errors\":[],\"results\":2,\"response\":[{\"continent\":\"Europe\",\"country\":\"Portugal\",\"population\":10198931,\"cases\":{...},\"deaths\":{...},\"tests\":{...},\"day\":\"2020-06-02\",\"time\":\"2020-06-02T12:45:07+00:00\"}, {}]}";
 
@@ -108,5 +110,22 @@ public class CovidIncidenceController_WithMockServiceTest {
             .andExpect(status().isOk());
 
         verify(service, times(1)).getCountryHistory("portugal", "2020-06-02");
+    }
+
+    @Test
+    void givenCacheUsageStats_whenGetCacheUsageStats_thenReturnCacheUsageStats() throws Exception {
+        String cacheInfo = "This cache contains 2 elements with 5 of TTL.\nNº hits: 2, nº misses: 5";
+
+        JSONObject json = new JSONObject();
+        json.put("response", cacheInfo);
+
+        ResponseEntity<String> response = new ResponseEntity<>(json.toString(), HttpStatus.OK);
+
+        when(service.getCacheUsageStats()).thenReturn(response);
+        mvc.perform(
+            get("/api/cache").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+
+        verify(service, times(1)).getCacheUsageStats();
     }
 }

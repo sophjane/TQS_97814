@@ -33,7 +33,7 @@ import java.util.Optional;
 import homework.covidincidence.service.CovidIncidenceService;
 
 @ExtendWith(MockitoExtension.class)
-public class CovidIncidenceServiceTest {
+class CovidIncidenceServiceTest {
 
     @Mock
     private CustomHttpClient client;

@@ -49,4 +49,9 @@ public class CovidIncidenceController {
         return covidIncidenceService.getCountryHistory(country, day);
     }
     
+    @CrossOrigin(origins = "*")
+    @GetMapping("/cache")
+    public ResponseEntity<String> getCacheUsageStats() {
+        return covidIncidenceService.getCacheUsageStats();
+    }
 }

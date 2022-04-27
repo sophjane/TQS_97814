@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Cache {
 
@@ -16,8 +17,8 @@ public class Cache {
 
 
 	protected class CacheObject {
-		public long creationTime = System.currentTimeMillis();
-		public String value;
+		private long creationTime = System.currentTimeMillis();
+		private String value;
  
 		protected CacheObject(String value) {
 			this.value = value;
@@ -31,24 +32,23 @@ public class Cache {
 		this.misses = 0;
 
 		if(ttl > 0) {
-			Thread t = new Thread(new Runnable() {
-				public void run() {
-					while (true) {
-						if(ttl <= 0) {
-							break;
-						}
 
-						try {
-							Thread.sleep(ttl);
-						} catch (InterruptedException ex) {
-							ex.printStackTrace();
-							Thread.currentThread().interrupt();
-						}
-						cacheCleanup();
+			Runnable task = () -> {
+				while (true) {
+					if(ttl <= 0) {
+						break;
 					}
-					
+
+					try {
+						Thread.sleep(ttl);
+					} catch (InterruptedException ex) {
+						ex.printStackTrace();
+						Thread.currentThread().interrupt();
+					}
+					cacheCleanup();
 				}
-			});
+			};
+			Thread t = new Thread(task);
 			t.setDaemon(true);
 			t.start();
 		}
@@ -57,7 +57,7 @@ public class Cache {
 	public String get(String key) {
 		synchronized(cacheMap) {
 			CacheObject c;
-			c = (CacheObject) cacheMap.get(key);
+			c = cacheMap.get(key);
 			if(c != null) {
 				this.hits++;
 				return c.value;
@@ -79,7 +79,7 @@ public class Cache {
 		}
 	}
  
-	public int size() {
+	public int getSize() {
 		synchronized (cacheMap) {
 			return cacheMap.size();
 		}
@@ -97,21 +97,25 @@ public class Cache {
 		return this.hits;
 	}
 
+	public String getCacheInfo() {
+		return String.format("This cache contains %d elements with %d of TTL.\nNº hits: %d, nº misses: %d", getSize(), getTtl(), getHits(), getMisses());
+	}
+
 
 	public void cacheCleanup() {
 		long now = System.currentTimeMillis();
-		ArrayList<String> keysToDelete = new ArrayList<String>((cacheMap.size() / 2) + 1);
+		ArrayList<String> keysToDelete = new ArrayList<>((cacheMap.size() / 2) + 1);
 
 
 		synchronized(cacheMap) {
-			Iterator it = cacheMap.entrySet().iterator();
+			Iterator<Entry<String, CacheObject>> it = cacheMap.entrySet().iterator();
 			CacheObject c = null;
 
 	
 			while(it.hasNext()) {
-				Map.Entry me = (Map.Entry)it.next();
-				String key = (String)me.getKey();
-				c = (CacheObject)me.getValue();
+				Map.Entry<String, CacheObject> me = it.next();
+				String key = me.getKey();
+				c = me.getValue();
 				
 	
 				if(c != null && (now > (ttl+c.creationTime))) {
