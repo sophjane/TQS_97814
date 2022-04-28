@@ -15,12 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<mockito-core.version>3.3.3</mockito-core.version>
-		<junit-jupiter.version>5.8.2</junit-jupiter.version>
+		<mockito-core.version>4.5.1</mockito-core.version>
 		<cucumber.version>7.2.3</cucumber.version>
 		<selenium-java.version>3.141.59</selenium-java.version>
 		<webdrivermanager.version>5.0.3</webdrivermanager.version>
 		<junit-platform-suite.version>1.8.2</junit-platform-suite.version>
+		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 		<sonar.organization>sophjane</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
@@ -65,12 +65,6 @@
         </dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito-core.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<version>${mockito-core.version}</version>
 			<scope>test</scope>
@@ -110,7 +104,17 @@
 			<artifactId>junit-jupiter</artifactId>
 			<version>${junit-jupiter.version}</version>
 			<scope>test</scope>
-			</dependency>
+		</dependency>
+		<dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>1.5.2</version>
+ 		</dependency>	
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-commons</artifactId>
+			<version>1.8.2</version>
+		</dependency>
 		<dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>

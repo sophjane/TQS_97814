@@ -57,6 +57,5 @@ public class CovidIncidenceSteps {
     @Then("I should see a paragraph with the cache usage statistics")
     public void iShouldGetCacheUsageStatistics() {
         WebElement option = new WebDriverWait(driver,3).until(driver -> driver.findElement(By.id("cache-info")));
-        
     }
 }
