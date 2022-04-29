@@ -38,14 +38,22 @@ public class CovidIncidenceController {
     @CrossOrigin(origins = "*")
     @GetMapping("/statistics")
     public ResponseEntity<String> getStatistics(@RequestParam(required = false) String country) throws URISyntaxException, IOException {
-        LOGGER.info(country != null ? "Controller: Get Statistics of " + country : "Controller: Get Statistics");
+        
+        if(country != null) {
+            LOGGER.info(String.format("Controller: Get Statistics of %s", country));
+        }
+        LOGGER.info("Controller: Get Statistics");
         return covidIncidenceService.getStatistics(country);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/history")
     public ResponseEntity<String> getHistory(@RequestParam String country, @RequestParam(required = false) String day) throws URISyntaxException, IOException {
-        LOGGER.info(day != null ? "Controller: Get Statistics of " + country + ", day: " + day : "Controller: Get Statistics of " + country);
+        if(day != null) {
+            LOGGER.info(String.format("Controller: Get Statistics of %s, day: %s", country, day));
+        } else {
+            LOGGER.info(String.format("Controller: Get Statistics of %s", country));
+        }
         return covidIncidenceService.getCountryHistory(country, day);
     }
     

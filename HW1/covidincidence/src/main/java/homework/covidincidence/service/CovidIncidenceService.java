@@ -5,9 +5,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpResponse;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
-import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,7 +45,6 @@ public class CovidIncidenceService {
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
         } catch (InterruptedException e){
-            e.printStackTrace();
             LOGGER.error("Service: Get Countries");
             Thread.currentThread().interrupt();
 
@@ -73,7 +69,6 @@ public class CovidIncidenceService {
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
         } catch (InterruptedException e){
-            e.printStackTrace();
             LOGGER.error("Service: Get Statistics");
             Thread.currentThread().interrupt();
             
@@ -100,7 +95,6 @@ public class CovidIncidenceService {
 
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
         } catch (InterruptedException e){
-            e.printStackTrace();
             LOGGER.error("Service: Get History");
             Thread.currentThread().interrupt();
 

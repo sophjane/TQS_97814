@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CovidIncidenceAPIIT {
+class CovidIncidenceAPIIT {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -123,8 +123,9 @@ public class CovidIncidenceAPIIT {
        
         assertThat(countryPosition0).isEqualTo("Portugal");
         assertThat(countryPosition1).isEqualTo("Portugal");
-        assertThat(params.get("country")).isEqualTo("portugal");
-        assertThat(params.get("day")).isEqualTo("2020-06-02");
+
+        assertThat(params).containsEntry("country", "portugal");
+        assertThat(params).containsEntry("day", "2020-06-02");
     }
 
 }

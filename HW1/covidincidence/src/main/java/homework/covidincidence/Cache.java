@@ -42,7 +42,6 @@ public class Cache {
 					try {
 						Thread.sleep(ttl);
 					} catch (InterruptedException ex) {
-						ex.printStackTrace();
 						Thread.currentThread().interrupt();
 					}
 					cacheCleanup();
@@ -98,7 +97,7 @@ public class Cache {
 	}
 
 	public String getCacheInfo() {
-		return String.format("This cache contains %d elements with %d of TTL.\nNº hits: %d, nº misses: %d", getSize(), getTtl(), getHits(), getMisses());
+		return String.format("This cache contains %d elements with %d of TTL.%nNº hits: %d, nº misses: %d", getSize(), getTtl(), getHits(), getMisses());
 	}
 
 
