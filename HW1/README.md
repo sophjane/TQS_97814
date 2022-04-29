@@ -2,7 +2,7 @@ API: https://rapidapi.com/api-sports/api/covid-193/
 
 
 
-History:
+(Example) History:
 
 ```
 https://covid-193.p.rapidapi.com/history?country=portugal&day=2020-04-07
@@ -63,7 +63,7 @@ Optional Parameters: day
 
 ---
 
-Statistics:
+(Example) Statistics:
 
 ```
 https://covid-193.p.rapidapi.com/statistics?country=ireland
